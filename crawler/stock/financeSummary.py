@@ -48,7 +48,19 @@ class SummaryPerSeason():
             self.netProfit = value
 
     def __str__(self):
-        return '['+self.deadLine+','+self.netAssestsValuePerShare+','+self.earningsPerShare+','+self.cashFlowPerShare+','+self.capitalFundPerShare+','+self.totalFixedAssets+','+self.totalCurrentAssets+','+self.totalAssets+','+self.totalLongTermLiabilities+','+self.mainBusinessRevenue+','+self.financialExpenses+','+self.netProfit+']'
+        list = [self.deadLine,
+        self.netAssestsValuePerShare,
+        self.earningsPerShare,
+        self.cashFlowPerShare,
+        self.capitalFundPerShare,
+        self.totalFixedAssets,
+        self.totalCurrentAssets,
+        self.totalAssets,
+        self.totalLongTermLiabilities,
+        self.mainBusinessRevenue,
+        self.financialExpenses,
+        self.netProfit]
+        return ','.join(list)
 
 class SeasonlySummaryCrawler():
     """爬取上市公司每一季度的财务摘要"""
