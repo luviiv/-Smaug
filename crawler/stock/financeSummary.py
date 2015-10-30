@@ -1,14 +1,15 @@
 #encoding: UTF-8
 import sys
-import urllib.request
-import urllib
+import urllib2
+from urllib2 import Request
+
 from bs4 import BeautifulSoup
 
 class SummaryPerSeason():
     """上市公司每季财务摘要"""
     def __init__(self):
         self.deadLine = '' #截止日期
-        self.netAssestsValuePerShare = '' #每股资产净值
+        self.netAssetsValuePerShare = '' #每股资产净值
         self.earningsPerShare = '' #每股收益
         self.cashFlowPerShare = '' #每股现金含量
         self.capitalFundPerShare = '' #每股公积金
@@ -25,7 +26,7 @@ class SummaryPerSeason():
         if idx==1:
             self.deadLine = value
         elif idx==2:
-            self.netAssestsValuePerShare = value
+            self.netAssetsValuePerShare = value
         elif idx==3:
             self.earningsPerShare = value
         elif idx==4:
@@ -48,29 +49,28 @@ class SummaryPerSeason():
             self.netProfit = value
 
     def __str__(self):
-        list = [self.deadLine,
-        self.netAssestsValuePerShare,
-        self.earningsPerShare,
-        self.cashFlowPerShare,
-        self.capitalFundPerShare,
-        self.totalFixedAssets,
-        self.totalCurrentAssets,
-        self.totalAssets,
-        self.totalLongTermLiabilities,
-        self.mainBusinessRevenue,
-        self.financialExpenses,
-        self.netProfit]
+        list = [self.deadLine.encode('GBK'),
+        self.netAssetsValuePerShare.encode('GBK'),
+        self.earningsPerShare.encode('GBK'),
+        self.cashFlowPerShare.encode('GBK'),
+        self.capitalFundPerShare.encode('GBK'),
+        self.totalFixedAssets.encode('GBK'),
+        self.totalCurrentAssets.encode('GBK'),
+        self.totalAssets.encode('GBK'),
+        self.totalLongTermLiabilities.encode('GBK'),
+        self.mainBusinessRevenue.encode('GBK'),
+        self.financialExpenses.encode('GBK'),
+        self.netProfit.encode('GBK')]
         return ','.join(list)
 
 class SeasonlySummaryCrawler():
     """爬取上市公司每一季度的财务摘要"""
     baseUrl = 'http://vip.stock.finance.sina.com.cn/corp/go.php/vFD_FinanceSummary/stockid/%s.phtml'
-    
     def fetchSeasonlySummary(self, companyCode):
         """获取上市公司的所有历史摘要数据"""
         url = self.baseUrl % (companyCode)
-        response = urllib.request.urlopen(url)
-        html = BeautifulSoup(response.read().decode('gb2312'))
+        response = urllib2.urlopen(Request(url))
+        html = BeautifulSoup(response.read().decode('gb2312'),'html.parser')
         summaryHistoryList = self.__analyzeHtml(html)
         return summaryHistoryList
 
@@ -82,10 +82,15 @@ class SeasonlySummaryCrawler():
         for row in rows.find_all('tr',recursive=False):
             td = row.find('td', class_='tdr')
             if td!=None:
-                summaryUnit.setProperty(idx,td.text)
+                summaryUnit.setProperty(idx,td.text.replace(u'\xa0',u''))
                 idx+=1
             else:
                 idx=1
                 resultList.append(summaryUnit)
                 summaryUnit = SummaryPerSeason()
         return resultList
+
+crawler = SeasonlySummaryCrawler()
+result=crawler.fetchSeasonlySummary('600029')
+for obj in result:
+    print(obj)
