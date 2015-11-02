@@ -48,24 +48,6 @@ class SummaryPerSeason():
         elif idx==12:
             self.netProfit = value
 
-    def __unicode__(self):
-        list = [self.deadLine.encode('GBK'),
-        self.netAssetsValuePerShare.encode('GBK'),
-        self.earningsPerShare.encode('GBK'),
-        self.cashFlowPerShare.encode('GBK'),
-        self.capitalFundPerShare.encode('GBK'),
-        self.totalFixedAssets.encode('GBK'),
-        self.totalCurrentAssets.encode('GBK'),
-        self.totalAssets.encode('GBK'),
-        self.totalLongTermLiabilities.encode('GBK'),
-        self.mainBusinessRevenue.encode('GBK'),
-        self.financialExpenses.encode('GBK'),
-        self.netProfit.encode('GBK')]
-        return ','.join(list)
-
-    def __str__(self):
-        return self.__unicode__()
-
 class SeasonlySummaryCrawler():
     """爬取上市公司每一季度的财务摘要"""
     baseUrl = 'http://vip.stock.finance.sina.com.cn/corp/go.php/vFD_FinanceSummary/stockid/%s.phtml'
@@ -85,7 +67,8 @@ class SeasonlySummaryCrawler():
         for row in rows.find_all('tr',recursive=False):
             td = row.find('td', class_='tdr')
             if td!=None:
-                summaryUnit.setProperty(idx,td.text.replace(u'\xa0',u''))
+                propertyValue = td.text.replace(u'\xa0',u'')
+                summaryUnit.setProperty(idx,filter(lambda ch:ch in '-.0123456789', propertyValue))
                 idx+=1
             else:
                 idx=1
