@@ -48,7 +48,7 @@ class SummaryPerSeason():
         elif idx==12:
             self.netProfit = value
 
-    def __str__(self):
+    def __unicode__(self):
         list = [self.deadLine.encode('GBK'),
         self.netAssetsValuePerShare.encode('GBK'),
         self.earningsPerShare.encode('GBK'),
@@ -62,6 +62,9 @@ class SummaryPerSeason():
         self.financialExpenses.encode('GBK'),
         self.netProfit.encode('GBK')]
         return ','.join(list)
+
+    def __str__(self):
+        return self.__unicode__()
 
 class SeasonlySummaryCrawler():
     """爬取上市公司每一季度的财务摘要"""
@@ -89,8 +92,3 @@ class SeasonlySummaryCrawler():
                 resultList.append(summaryUnit)
                 summaryUnit = SummaryPerSeason()
         return resultList
-
-crawler = SeasonlySummaryCrawler()
-result=crawler.fetchSeasonlySummary('600029')
-for obj in result:
-    print(obj)
