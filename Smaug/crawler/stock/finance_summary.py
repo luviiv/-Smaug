@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 """
-    financeSummary.py
+    finance_summary.py
     ~~~~~~~~~~~
-    Finance Summary Crawler
+    finance summary crawler
     :copyright: (c) 2015 by Lu Tianchao.
     :license: Apache, see LICENSE for more details.
 """
