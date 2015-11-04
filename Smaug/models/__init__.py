@@ -6,5 +6,4 @@
     :license: Apache, see LICENSE for more details.
 """
 
-from .frameview import frameview
-from .admin import adminview
+from .stock_info import StockIdentity

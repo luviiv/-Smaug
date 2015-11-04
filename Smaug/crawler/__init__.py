@@ -5,6 +5,4 @@
     :copyright: (c) 2015 by Lu Tianchao.
     :license: Apache, see LICENSE for more details.
 """
-
-from .frameview import frameview
-from .admin import adminview
+from .crawler_manager import initial_craw

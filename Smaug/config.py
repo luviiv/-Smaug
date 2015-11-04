@@ -26,6 +26,8 @@ class DefaultConfig(object):
 
     SQLALCHEMY_ECHO = False
 
+    SQLALCHEMY_TRACK_MODIFICATIONS = False
+
     BABEL_DEFAULT_LOCALE = 'zh_Hans_CN'
 
     DEBUG_LOG = 'logs/debug.log'

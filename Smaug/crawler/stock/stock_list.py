@@ -69,7 +69,8 @@ class StockCrawler():
         lis = table.find_all("li")
         for li in lis:
             code = filter(lambda ch:ch in "0123456789", li.text)
-            result_list.append(code)
+            name = filter(lambda ch:ch not in "()0123456789", li.text)
+            result_list.append((code,name))
         return result_list
 
 if __name__ == '__main__':

@@ -1,10 +1,19 @@
+<!DOCTYPE html>
 <html>
 <head>
     <title>{% block title %}{% endblock %}</title>
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.1.5/semantic.min.css"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
     <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.1.5/semantic.min.css">
 </head>
 <body>
-    
+    <div class="ui borderless main menu" style="max-width:800px;margin:0 auto;">
+        <div class="ui text container">
+          <div href="#" class="header item">
+            <img class="logo" src="{{ url_for('static', filename='images/logo.png') }}"/>
+            <div class="item header">{{ _("Smaug") }}</div>
+          </div>
+        </div>
+    </div>
 </body>
 </html>

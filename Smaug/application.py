@@ -17,6 +17,7 @@ from flask.ext.babel import Babel, gettext as _
 #Smaug
 from Smaug import views
 from Smaug.config import DefaultConfig
+from Smaug.extensions import db, cache
 
 __all__ = ["create_app"]
 
@@ -24,6 +25,7 @@ DEFAULT_APP_NAME = "Smaug"
 
 DEFAULT_MODULES = (
     (views.frameview,""),
+    (views.adminview,"/admin"),
 )
 
 def create_app(config=None, app_name=None, modules=None):
@@ -56,13 +58,17 @@ def configure_app(app, config):
 
 def configure_extensions(app):
     """all extensions goes here"""
+
+    cache.init_app(app)
+    db.init_app(app)
+    
     configure_i18n(app)
 
 def configure_modules(app, modules):
     """load modules that want to be used"""
 
     for module, url_prefix in modules:
-        return app.register_blueprint(module, url_prefix=url_prefix)
+        app.register_blueprint(module, url_prefix=url_prefix)
 
 def configure_i18n(app):
     """configure language setting"""

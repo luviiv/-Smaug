@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>{{ _("Smaug") }}</title>
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.1.5/semantic.min.css">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/base.css') }}">
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.1.5/semantic.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+    <script type="text/javascript" src="{{ url_for('static', filename='js/admin.js') }}"></script>
+</head>
+<body>
+    <div class="ui borderless main menu smg-width">
+        <div class="ui text container">
+          <div href="#" class="header item">
+            <img class="logo" src="{{ url_for('static', filename='images/logo.png') }}"/>
+            <div class="item header">{{ _("Smaug") }}</div>
+          </div>
+        </div>
+    </div>
+    
+    <div class="ui segment smg-width" id="basic_setup">
+        <div class="ui vertical segment">
+          <h2 class="ui header">{{ _("Basic setup") }}</h2>
+        </div>
+        <div class="ui info message hidden" id="basic_setup_msg_success">
+            <i class="close icon"></i>
+            <div class="header">{{ _("update succeeded!") }}</div>
+        </div>
+        <div class="ui error message hidden" id="basic_setup_msg_error">
+            <i class="close icon"></i>
+            <div class="header">{{ _("update failed!") }}</div>
+        </div>
+        <div class="ui message">
+            <p>{{ _("Update the stock list to the lastest version, which will update stock_list table that stores stock code and name.") }}</p>
+            <button id="update_stock_list" class="ui right labeled icon button"><i class="right refresh icon"></i>
+                {{ _("Update stock list") }}</button>
+        </div>
+    </div>
+</body>
+</html>

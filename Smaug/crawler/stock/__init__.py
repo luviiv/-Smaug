@@ -6,5 +6,6 @@
     :license: Apache, see LICENSE for more details.
 """
 
-from .frameview import frameview
-from .admin import adminview
+from .finance_summary import SeasonlySummaryCrawler
+from .finance_summary import SummaryPerSeason
+from .stock_list import StockCrawler
