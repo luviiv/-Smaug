@@ -8,11 +8,13 @@
 
 from flask import Blueprint, render_template, abort, jsonify
 from Smaug.crawler import initial_craw
+from Smaug.permissions import auth
 
 adminview = Blueprint('adminview', __name__,
                         template_folder='templates')
 
 @adminview.route('/')
+@auth.require(401)
 def admin():
     try:
         return render_template('admin.html')

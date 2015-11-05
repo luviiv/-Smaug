@@ -7,3 +7,4 @@
 """
 
 from .stock_info import StockIdentity
+from .users import User

@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+{% from "macros/_forms.html" import render_errors %}
+{% from "macros/_forms.html" import form_field %}
+
+{% block content %}
+<div style="width:300px; margin:0 auto;">
+<h2>{{ _("Login") }}</h2>
+<div class="ui divider"></div>
+{% with messages = get_flashed_messages() %}
+  {% if messages %}
+      <div class="ui error message">{{ messages|last }}</div>
+  {% endif %}
+{% endwith %}
+<form method="POST" action=".">
+    {{ form.hidden_tag() }}
+    {{ form.next }}
+    <div class="ui very relaxed list">
+        <div class="item">
+            {{ render_errors(form.login) }}
+            <div class="ui input fluid">
+            {{ form_field(form.login) }}
+            </div>
+        </div>
+
+        <div class="item">
+            {{ render_errors(form.password) }}
+            <div class="ui input fluid">
+            {{ form_field(form.password) }}
+            </div>
+        </div>
+        <div class="item">
+            <div class="ui checkbox">
+            {{ form.remember }}
+            {{ form.remember.label(class_="checkbox") }}
+            </div>
+        </div>
+        <div class="item">
+            {{ form.submit(class_="ui button fluid") }}
+        </div>
+    </div>
+</form>
+</div>
+{% endblock %}

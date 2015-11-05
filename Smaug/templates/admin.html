@@ -9,7 +9,7 @@
     <script type="text/javascript" src="{{ url_for('static', filename='js/admin.js') }}"></script>
 </head>
 <body>
-    <div class="ui borderless main menu smg-width">
+    <div class="ui borderless main menu">
         <div class="ui text container">
           <div href="#" class="header item">
             <img class="logo" src="{{ url_for('static', filename='images/logo.png') }}"/>
@@ -31,9 +31,14 @@
             <div class="header">{{ _("update failed!") }}</div>
         </div>
         <div class="ui message">
-            <p>{{ _("Update the stock list to the lastest version, which will update stock_list table that stores stock code and name.") }}</p>
+            <p>{{ _("Update the stock list to the lastest version, which includes stock code and name.") }}</p>
             <button id="update_stock_list" class="ui right labeled icon button"><i class="right refresh icon"></i>
                 {{ _("Update stock list") }}</button>
+        </div>
+        <div class="ui message">
+            <p>{{ _("Update the seasonly finance summary of each compay.") }}</p>
+            <button id="update_finance_summary" class="ui right labeled icon button"><i class="right refresh icon"></i>
+                {{ _("Update finance summary") }}</button>
         </div>
     </div>
 </body>

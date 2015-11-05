@@ -6,6 +6,5 @@
     :license: Apache, see LICENSE for more details.
 """
 
-from .frameview import frameview
-from .admin import adminview
-from .account import account
+from .account import LoginForm
+
