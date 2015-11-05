@@ -12,7 +12,7 @@ from Smaug.extensions import db
 class StockIdentity(db.Model):
     __tablename__ = "stock_identity"
 
-    code = db.Column(db.Integer, primary_key = True)
+    code = db.Column(db.String(6), primary_key = True)
     name = db.Column(db.String(16))
 
     def __init__(self, code , name):

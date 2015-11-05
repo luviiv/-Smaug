@@ -18,9 +18,27 @@ function updateStockList(){
     return deferred.promise()
 }
 
+function updateFinanceSummary(){
+    var deferred = $.Deferred();
+    $.ajax({
+        url: '/admin/update_finance_summary',
+        type: 'GET'
+    })
+    .done(function() {
+        deferred.resolve();
+    })
+    .fail(function() {
+        deferred.reject();
+    });
+    return deferred.promise();
+}
+
 $(function(){
     $("#update_stock_list").click(function(event) {
         updateStockList();
+    });
+    $("#update_finance_summary").click(function(event) {
+        updateFinanceSummary();
     });
     $('.message .close').on('click', function() {
         $(this).closest('.message').addClass('hidden');

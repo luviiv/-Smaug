@@ -8,6 +8,7 @@
 
 from flask import Blueprint, render_template, abort, jsonify
 from Smaug.crawler import initial_craw
+from Smaug.crawler import summary_craw
 from Smaug.permissions import auth
 
 adminview = Blueprint('adminview', __name__,
@@ -24,5 +25,12 @@ def admin():
 @adminview.route('/update_stock_list')
 def update_stock_list():
     initial_craw()
+
+    return jsonify(status="success")
+
+@adminview.route('/update_finance_summary')
+def update_finance_summary():
+
+    summary_craw()
 
     return jsonify(status="success")

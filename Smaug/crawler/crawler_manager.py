@@ -32,7 +32,16 @@ def initial_craw():
         db.session.add(identity)
 
     db.session.commit()
-        
+
+def summary_craw():
+    """craw seasonly summary"""
+    stocks = StockIdentity.query.all()
+    for company in stocks:
+        summaryCrawler = SeasonlySummaryCrawler()
+        result = summaryCrawler.fetch_seasonly_summary(company.code)
+        print company.code
+        for elem in result:
+            print elem.earnings_per_share
 
 if __name__ == '__main__':
     initial_craw()
