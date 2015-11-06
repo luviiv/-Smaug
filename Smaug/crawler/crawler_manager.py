@@ -6,13 +6,17 @@
     :copyright: (c) 2015 by Lu Tianchao.
     :license: Apache, see LICENSE for more details.
 """
+import threading
 
 from stock import SeasonlySummaryCrawler
 from stock import StockCrawler
 from stock import SummaryPerSeason
 
 from Smaug.models import StockIdentity
+from Smaug.models import SeasonlySummary
 from Smaug.extensions import db
+
+import logging
 
 def initial_craw():
     """craw data when setup"""
@@ -35,13 +39,27 @@ def initial_craw():
 
 def summary_craw():
     """craw seasonly summary"""
-    stocks = StockIdentity.query.all()
-    for company in stocks:
-        summaryCrawler = SeasonlySummaryCrawler()
-        result = summaryCrawler.fetch_seasonly_summary(company.code)
-        print company.code
-        for elem in result:
-            print elem.earnings_per_share
+    #thread lock
+    lock = threading.Lock()
+    lock.acquire()
+    try:
+        stocks = StockIdentity.query.all()
+        for company in stocks:
+            latest = SeasonlySummary.query.filter_by(code=company.code).\
+                order_by(SeasonlySummary.dead_line.desc()).first()
+            summaryCrawler = SeasonlySummaryCrawler()
+            if latest==None:
+                dead_line = None
+            else:
+                dead_line = latest.dead_line
+            result = summaryCrawler.fetch_seasonly_summary(company.code, dead_line)
+            for elem in result:
+                summary = SeasonlySummary(company.code, elem)
+                db.session.add(summary)
+            db.session.commit()
+            print "DB commited seasonly_summary %s" % company.code
+    finally:
+        lock.release()
 
 if __name__ == '__main__':
     initial_craw()

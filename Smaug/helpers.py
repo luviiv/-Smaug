@@ -1,11 +1,13 @@
 # -*- coding: utf-8 -*-
 """
-    __init__.py
+    helpers.py
     ~~~~~~~~~~~
     :copyright: (c) 2015 by Lu Tianchao.
     :license: Apache, see LICENSE for more details.
 """
 
-from .stock_info import StockIdentity
-from .stock_info import SeasonlySummary
-from .users import User
+def str_2_float(str_val):
+    if str_val.strip():
+        return float(str_val)
+    else:
+        return 0.0

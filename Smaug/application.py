@@ -11,7 +11,7 @@ import os
 import logging
 from logging.handlers import RotatingFileHandler
 #flask library
-from flask import Flask, request, jsonify, g, flash, redirect, url_for
+from flask import Flask, request, jsonify, g, flash, redirect, url_for, render_template
 #flaskext
 from flask.ext.babel import Babel, gettext as _
 from flask.ext.principal import Principal, identity_loaded

@@ -66,15 +66,15 @@ class SummaryPerSeason():
 class SeasonlySummaryCrawler():
     """craw the seasonly finance summary"""
     base_url = 'http://vip.stock.finance.sina.com.cn/corp/go.php/vFD_FinanceSummary/stockid/%s.phtml'
-    def fetch_seasonly_summary(self, companyCode):
+    def fetch_seasonly_summary(self, companyCode, latest_date):
         """fetch the seasonly finance summary of a given company"""
         url = self.base_url % (companyCode)
         response = urllib2.urlopen(Request(url))
-        html = BeautifulSoup(response.read().decode('gb2312'),'html.parser')
-        summary_history_list = self.__analyzeHtml(html)
+        html = BeautifulSoup(response.read().decode('GBK'),'html.parser')
+        summary_history_list = self.__analyzeHtml(html, latest_date)
         return summary_history_list
 
-    def __analyzeHtml(self, data):
+    def __analyzeHtml(self, data, latest_date):
         """analyze the html and setup each property"""
         result_list = []
         rows = data.find(id="FundHoldSharesTable")
@@ -87,6 +87,8 @@ class SeasonlySummaryCrawler():
                 summary_unit.set_property(idx,filter(lambda ch:ch in '-.0123456789', propertyValue))
                 idx+=1
             else:
+                if latest_date!=None and summary_unit.dead_line<=latest_date:
+                    return result_list
                 idx=1
                 result_list.append(summary_unit)
                 summary_unit = SummaryPerSeason()
@@ -95,6 +97,6 @@ class SeasonlySummaryCrawler():
 if __name__ == '__main__':
     """test for the crawed result"""
     crawler = SeasonlySummaryCrawler()
-    result = crawler.fetch_seasonly_summary('600710')
+    result = crawler.fetch_seasonly_summary('600710', '2015-06-30')
     for x in result:
         print x    
