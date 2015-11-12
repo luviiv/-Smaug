@@ -16,7 +16,9 @@ from Smaug.models import StockIdentity
 from Smaug.models import SeasonlySummary
 from Smaug.extensions import db
 
-import logging
+from flask import current_app
+
+import datetime, calendar
 
 def initial_craw():
     """craw data when setup"""
@@ -52,14 +54,39 @@ def summary_craw():
                 dead_line = None
             else:
                 dead_line = latest.dead_line
+            # if already latest dealine, ignore
+            if dead_line is not None and is_latest_deadline(dead_line):
+                current_app.logger.debug("%s ignored" % company.code)
+                continue
+
             result = summaryCrawler.fetch_seasonly_summary(company.code, dead_line)
             for elem in result:
                 summary = SeasonlySummary(company.code, elem)
                 db.session.add(summary)
             db.session.commit()
-            print "DB commited seasonly_summary %s" % company.code
+            current_app.logger.debug("DB commited seasonly_summary %s" % company.code)
     finally:
         lock.release()
+
+def is_latest_deadline(dead_line):
+    target_date = datetime.datetime.strptime(dead_line,'%Y-%m-%d').date()
+    today = datetime.date.today()
+    date_gap = abs((today-target_date).days)
+
+    if date_gap<=93:
+        if get_month_gap(today.month, target_date.month) <= 3:
+            return True
+        else:
+            return False
+    else:
+        return False
+
+def get_month_gap(target, old):
+    gap = target - old
+    if gap< 0:
+        gap = gap + 12
+
+    return gap
 
 if __name__ == '__main__':
     initial_craw()
