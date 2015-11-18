@@ -69,6 +69,9 @@ def summary_craw():
         lock.release()
 
 def is_latest_deadline(dead_line):
+    """
+    if this dead_line is already the latest, according to the end of season
+    """
     target_date = datetime.datetime.strptime(dead_line,'%Y-%m-%d').date()
     today = datetime.date.today()
     date_gap = abs((today-target_date).days)

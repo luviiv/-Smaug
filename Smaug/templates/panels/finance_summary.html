@@ -1,0 +1,27 @@
+{% extends "index.html" %}
+
+{% block css %}
+<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/jqgrid/4.6.0/css/ui.jqgrid.css">
+{% endblock %}
+
+{% block right %}
+<table id="summary_grid"></table>
+<input id="query_url" type="hidden" value="{{ url_for('frameview.finance_summary',code='600000') }}"/>
+<input type='hidden' value='{{ _("Dead Line") }}' id='dead_line'/>
+<input type='hidden' value='{{ _("Stock Name") }}' id='stock_name'/>
+<input type='hidden' value='{{ _("Main Business Revenue") }}' id='main_business_revenue'/>
+<input type='hidden' value='{{ _("Net Profit") }}' id='net_profit'/>
+<input type='hidden' value='{{ _("Earnings Per Share") }}' id='earnings_per_share'/>
+<input type='hidden' value='{{ _("Total Long Term Liabilities") }}' id='total_long_term_liabilities'/>
+<input type='hidden' value='{{ _("Net Assets Value Per Share") }}' id='net_assets_value_per_share'/>
+<input type='hidden' value='{{ _("Cash Flow Per Share") }}' id='cash_flow_per_share'/>
+<input type='hidden' value='{{ _("Financial Expenses") }}' id='financial_expenses'/>
+<input type='hidden' value='{{ _("Total Current Assets") }}' id='total_current_assets'/>
+<input type='hidden' value='{{ _("Total Fixed Assets") }}' id='total_fixed_assets'/>
+<input type='hidden' value='{{ _("Total Assets") }}' id='total_assets'/>
+{% endblock%}
+
+{% block javascript %}
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jqgrid/4.6.0/js/jquery.jqGrid.min.js"></script>
+<script type="text/javascript" src="{{ url_for('static', filename='js/panels/finance_summary.js') }}"></script>
+{% endblock %}
