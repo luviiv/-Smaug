@@ -5,8 +5,28 @@
 {% endblock %}
 
 {% block right %}
+<h3 class="ui header">{{ _("Finance Summary") }}
+    <div class="sub header">{{ company.code }} &nbsp;&nbsp; {{ company.name }}</div>
+</h3>
+<div class="ui grid" style="margin-bottom: 0.5px;">
+  <div class="ten wide column">
+    <div class="ui buttons">
+      <button class="ui button" id="all" disabled="true">{{ _("All") }}</button>
+      <button class="ui button" id="march" disabled="true">{{ _("March") }}</button>
+      <button class="ui button" id="june" disabled="true">{{ _("June") }}</button>
+      <button class="ui button" id="september" disabled="true">{{ _("September") }}</button>
+      <button class="ui button" id="december" disabled="true">{{ _("December") }}</button>
+    </div>
+  </div>
+  <div class="six wide column">
+    <div class="ui input" style="float: right">
+      <input type="text" id="search_stock" placeholder="{{ _('Search Stock') }}...">
+    </div>
+  </div>
+</div>
+
 <table id="summary_grid"></table>
-<input id="query_url" type="hidden" value="{{ url_for('frameview.finance_summary',code='600000') }}"/>
+<input id="query_url" type="hidden" value="{{ company.url }}"/>
 <input type='hidden' value='{{ _("Dead Line") }}' id='dead_line'/>
 <input type='hidden' value='{{ _("Stock Name") }}' id='stock_name'/>
 <input type='hidden' value='{{ _("Main Business Revenue") }}' id='main_business_revenue'/>

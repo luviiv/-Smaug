@@ -28,6 +28,7 @@ DEFAULT_MODULES = (
     (views.frameview,""),
     (views.adminview,"/admin"),
     (views.account,"/account"),
+    (views.fetchdata, "/fetchdata")
 )
 
 def create_app(config=None, app_name=None, modules=None):

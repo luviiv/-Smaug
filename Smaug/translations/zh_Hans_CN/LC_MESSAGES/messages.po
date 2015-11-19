@@ -20,23 +20,23 @@ msgstr ""
 
 #: application.py:112
 msgid "Sorry, page not found"
-msgstr "对不起，页面暂时无法访问"
+msgstr "页面不存在"
 
 #: application.py:118
 msgid "Sorry, not allowed"
-msgstr "对不起，您没有权限"
+msgstr "不被允许的操作"
 
 #: application.py:124
 msgid "Sorry, an error has occurred"
-msgstr "对不起，出错了"
+msgstr "页面有错误"
 
 #: application.py:130
 msgid "Login required"
-msgstr "必须先登录"
+msgstr "需要登录才能访问"
 
 #: application.py:131
 msgid "Please login to see this page"
-msgstr "登录后再查看此页面"
+msgstr "请登录后再访问此页面"
 
 #: forms/account.py:20
 msgid "Remember me"
@@ -48,7 +48,7 @@ msgstr "用户名或邮箱"
 
 #: forms/account.py:23
 msgid "You must provide an email or username"
-msgstr "您必须提供用户名或邮箱"
+msgstr "必须提供用户名或邮箱"
 
 #: forms/account.py:24
 msgid "Password"
@@ -58,62 +58,113 @@ msgstr "密码"
 msgid "Login"
 msgstr "登录"
 
-#: templates/admin.html:4 templates/admin.html:16 templates/base.html:16
+#: templates/admin.html:4 templates/admin.html:17 templates/base.html:16
 #: templates/index.html:4
 msgid "Smaug"
-msgstr "股海寻踪"
+msgstr "找股票"
 
-#: templates/admin.html:23
+#: templates/admin.html:24
 msgid "Basic setup"
 msgstr "基本设定"
 
-#: templates/admin.html:27
+#: templates/admin.html:28
 msgid "update succeeded!"
-msgstr "数据更新成功！"
+msgstr "成功更新了数据！"
 
-#: templates/admin.html:31
+#: templates/admin.html:32
 msgid "update failed!"
-msgstr "更新失败了，请检查网络！"
+msgstr "更新数据失败了"
 
-#: templates/admin.html:34
+#: templates/admin.html:35
 msgid ""
 "Update the stock list to the lastest version, which includes stock code "
 "and name."
-msgstr "更新至最新的股票列表，包含股票代码和名称"
+msgstr "更新至最新的沪深股票列表"
 
-#: templates/admin.html:36
+#: templates/admin.html:37
 msgid "Update stock list"
 msgstr "更新股票列表"
 
-#: templates/admin.html:39
+#: templates/admin.html:40
 msgid "Update the seasonly finance summary of each compay."
-msgstr "更新各个季度的财务报表（季报）"
+msgstr "更新至最新季度的财务摘要"
 
-#: templates/admin.html:41
+#: templates/admin.html:42
 msgid "Update finance summary"
-msgstr "更新季报"
+msgstr "更新财务摘要"
+
+#: templates/panels/finance_summary.html:10
+msgid "Finance Summary"
+msgstr "财务摘要"
+
+#: templates/panels/finance_summary.html:16
+msgid "Search"
+msgstr "搜索"
+
+#: templates/panels/finance_summary.html:23
+msgid "Dead Line"
+msgstr "截止日"
+
+#: templates/panels/finance_summary.html:24
+msgid "Stock Name"
+msgstr "股票名称"
+
+#: templates/panels/finance_summary.html:25
+msgid "Main Business Revenue"
+msgstr "主营业务收入"
+
+#: templates/panels/finance_summary.html:26
+msgid "Net Profit"
+msgstr "净利润"
+
+#: templates/panels/finance_summary.html:27
+msgid "Earnings Per Share"
+msgstr "每股收益"
+
+#: templates/panels/finance_summary.html:28
+msgid "Total Long Term Liabilities"
+msgstr "长期负债合计"
+
+#: templates/panels/finance_summary.html:29
+msgid "Net Assets Value Per Share"
+msgstr "单位净值"
+
+#: templates/panels/finance_summary.html:30
+msgid "Cash Flow Per Share"
+msgstr "每股现金含量"
+
+#: templates/panels/finance_summary.html:31
+msgid "Financial Expenses"
+msgstr "财务费用"
+
+#: templates/panels/finance_summary.html:32
+msgid "Total Current Assets"
+msgstr "流动资产合计"
+
+#: templates/panels/finance_summary.html:33
+msgid "Total Fixed Assets"
+msgstr "固定资产合计"
+
+#: templates/panels/finance_summary.html:34
+msgid "Total Assets"
+msgstr "资产总计"
 
 #: views/account.py:48
 msgid ""
 "Your OpenID has been attached to your account. You can now sign in with "
 "your OpenID."
-msgstr ""
-"您的 OpenID 已经与账户关联. 您可以使用 "
-"您的OpenID登录."
+msgstr "OpenID已成功关联至账户，现在可以使用OpenID进行登录"
 
 #: views/account.py:53
 #, python-format
 msgid "Welcome back, %(name)s"
 msgstr "欢迎回来，%(name)s"
 
-#: views/account.py:64
+#: views/account.py:63
 msgid "Sorry, invalid login"
-msgstr "用户名或密码错误！"
+msgstr "用户名或密码错误"
 
-#: views/account.py:72
+#: views/account.py:71
 msgid "You are now logged out"
-msgstr "已经登出"
-
-#~ msgid "Smaug Stock Viewer"
-#~ msgstr "股海寻踪"
+msgstr "您已成功登出"
 

@@ -9,3 +9,4 @@
 from .frameview import frameview
 from .admin import adminview
 from .account import account
+from.fetchdata import fetchdata

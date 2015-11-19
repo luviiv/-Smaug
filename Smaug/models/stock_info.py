@@ -8,7 +8,6 @@
 """
 
 from Smaug.extensions import db
-from Smaug.helpers import str_2_float
 
 class StockIdentity(db.Model):
     __tablename__ = "stock_identity"
@@ -66,14 +65,14 @@ class SeasonlySummary(db.Model):
 
     def __init__(self,code, summary_obj):
         self.dead_line = summary_obj.dead_line
-        self.net_assets_value_per_share = str_2_float(summary_obj.net_assets_value_per_share)
-        self.earnings_per_share = str_2_float(summary_obj.earnings_per_share)
-        self.cash_flow_per_share = str_2_float(summary_obj.cash_flow_per_share)
-        self.capital_fund_per_share = str_2_float(summary_obj.capital_fund_per_share)
-        self.total_fixed_assets = str_2_float(summary_obj.total_fixed_assets)
-        self.total_current_assets = str_2_float(summary_obj.total_current_assets)
-        self.total_assets = str_2_float(summary_obj.total_assets)
-        self.total_long_term_liabilities = str_2_float(summary_obj.total_long_term_liabilities)
-        self.main_business_revenue = str_2_float(summary_obj.main_business_revenue)
-        self.financial_expenses = str_2_float(summary_obj.financial_expenses)
-        self.net_profit = str_2_float(summary_obj.net_profit)
+        self.net_assets_value_per_share = summary_obj.net_assets_value_per_share
+        self.earnings_per_share = summary_obj.earnings_per_share
+        self.cash_flow_per_share = summary_obj.cash_flow_per_share
+        self.capital_fund_per_share = summary_obj.capital_fund_per_share
+        self.total_fixed_assets = summary_obj.total_fixed_assets
+        self.total_current_assets = summary_obj.total_current_assets
+        self.total_assets = summary_obj.total_assets
+        self.total_long_term_liabilities = summary_obj.total_long_term_liabilities
+        self.main_business_revenue = summary_obj.main_business_revenue
+        self.financial_expenses = summary_obj.financial_expenses
+        self.net_profit = summary_obj.net_profit
