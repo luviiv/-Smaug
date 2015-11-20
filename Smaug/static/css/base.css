@@ -4,5 +4,9 @@
 }
 
 .smg-hide{
-    display: none;
+    display: none !important;
+}
+
+.smg-red-font{
+    color: red !important;
 }

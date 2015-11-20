@@ -34,7 +34,8 @@ def finance_summary(code=None):
                             .first().name
             company={'code': query_code,
                     'name':query_name,
-                    'url': url_for('frameview.finance_summary',code=query_code),}
+                    'query_url': url_for('frameview.finance_summary',code=query_code),
+                    }
             return render_template('panels/finance_summary.html', 
                 company=company)
         else:

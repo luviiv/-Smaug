@@ -5,9 +5,14 @@ function SummaryGrid(){
     var MARCH = /-03-/;
     var JUNE = /-06-/;
     var SEPTEMBER = /-09-/;
+
+    var no_result = $('#search_result').text();
+    var current_stock = {}
+    current_stock.code = $('#title_code').text();
+    current_stock.name = $('#title_name').text();
     //regexp to test if matches the month
-    this.loadGrid = function(){
-        var queryUrl = $('#query_url').val();
+    this.loadGrid = function(_code){
+        var queryUrl = '/finance_summary/'+_code;
         $("#summary_grid").jqGrid({
             url: queryUrl,
             mtype: "GET",
@@ -29,6 +34,7 @@ function SummaryGrid(){
                 
             ],
             viewrecords: true,
+            rowNum: -1,
             width: 900,
             height: 460,
             loadComplete: function(){
@@ -72,6 +78,27 @@ function SummaryGrid(){
             self.filterByDeadLine(DECEMBER);
         });
         $('#search_stock').change(searchStock);
+        $('#search_result').blur(function(event) {
+            $('#search_result').addClass('smg-hide');
+        });
+        $('#search_result').click(function(event) {
+            $('#search_result').addClass('smg-hide');
+            disableFilterButtons();
+            if(self.current_stock!=null){
+                $('#title_code').text(self.current_stock.code);
+                $('#title_name').text(self.current_stock.name);
+                $("#summary_grid").jqGrid('GridUnload');
+                self.loadGrid(self.current_stock.code);
+                $('#title_code').parent().animate({
+                    color: "red"
+                }, 2000 );
+                setTimeout(function(){
+                    $('#title_code').parent().animate({
+                        color: "black"
+                    }, 2000 );
+                }, 6000);
+            }
+        });
     };
 
     function enableFilterButtons(){
@@ -90,12 +117,29 @@ function SummaryGrid(){
     }
 
     function searchStock(){
-        alert("yes");
+        $.ajax({
+            url: '/fetchdata/querystock/'+$('#search_stock').val(),
+            type: 'GET'
+        }).then(function(back){
+            if(back.stock==null){
+                $('#search_result').text(no_result);
+                $('#search_result').removeClass('blue')
+                $('#search_result').addClass('red');
+                self.current_stock = null;
+            }else{
+                $('#search_result').text(back.stock.code+' '+back.stock.name);
+                $('#search_result').removeClass('red')
+                $('#search_result').addClass('blue');
+                self.current_stock = back.stock;
+            }
+            $('#search_result').removeClass('smg-hide');
+            $('#search_result').focus();
+        });
     }
 }
 
 $(function(){
     var summaryGrid = new SummaryGrid();
     summaryGrid.bindActions();
-    summaryGrid.loadGrid();
+    summaryGrid.loadGrid($('#title_code').text());
 });
