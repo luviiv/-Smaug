@@ -50,7 +50,7 @@ def summary_craw():
     try:
         stocks = StockIdentity.query.all()
         for company in stocks:
-            current_app.logger.debug("begin to update finance summary ratio for[%s]") %company.code
+            current_app.logger.debug("begin to update finance summary ratio for[%s]"%company.code) 
             latest = SeasonlySummary.query.filter_by(code=company.code).\
                 order_by(SeasonlySummary.dead_line.desc()).first()
             summaryCrawler = SeasonlySummaryCrawler()
@@ -83,10 +83,11 @@ def summary_craw():
             else:
                 result = summary_ratios_calculate(company.code, dead_line)
                 for key in result:
-                    summary_ratio = SummaryRatios(company.code, int(key), result[key][MoM_main_business_revenue], 
-                        result[key][YoY_main_business_revenue], result[key][MoM_net_profit], result[key][YoY_net_profit], 
-                        result[key][MoM_earnings_per_share], result[key][YoY_earnings_per_share], 
-                        result[key][MoM_cash_flow_per_share], result[key][YoY_cash_flow_per_share])
+                    summary_ratio = SummaryRatios(company.code, int(key), 
+                        result[key]['MoM_main_business_revenue'], result[key]['YoY_main_business_revenue'], 
+                        result[key]['MoM_net_profit'], result[key]['YoY_net_profit'], 
+                        result[key]['MoM_earnings_per_share'], result[key]['YoY_earnings_per_share'], 
+                        result[key]['MoM_cash_flow_per_share'], result[key]['YoY_cash_flow_per_share'])
                     db.session.add(summary_ratio)
                 db.session.commit()
                 current_app.logger.debug("DB commited summary_ratio %s" % company.code)

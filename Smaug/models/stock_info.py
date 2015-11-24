@@ -82,7 +82,7 @@ class SummaryRatios(db.Model):
 
     code = db.Column(db.String(6), db.ForeignKey('stock_identity.code'), 
         primary_key=True)
-    dead_line = db.Column(db.Integer)
+    dead_line = db.Column(db.Integer,primary_key=True)
     MoM_main_business_revenue = db.Column(db.Numeric, default=0.0)
     YoY_main_business_revenue = db.Column(db.Numeric, default=0.0)
     MoM_net_profit = db.Column(db.Numeric, default=0.0)
