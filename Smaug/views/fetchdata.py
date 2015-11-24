@@ -8,6 +8,8 @@
 
 from flask import Blueprint, jsonify, abort
 from Smaug.models import StockIdentity
+from Smaug.calculator import summary_ratios_calculate
+
 import re
 
 fetchdata = Blueprint('fetchdata',__name__,template_folder='templates')
@@ -32,3 +34,8 @@ def query_stock(parameter):
             return jsonify(status="error")
     except:
         abort(404)
+
+@fetchdata.route('/summaryratio/<code>', methods=['GET'])
+def query_summary_ratio(code):
+    result = summary_ratios_calculate(code)
+    return jsonify(ratios = result)

@@ -76,3 +76,45 @@ class SeasonlySummary(db.Model):
         self.main_business_revenue = summary_obj.main_business_revenue
         self.financial_expenses = summary_obj.financial_expenses
         self.net_profit = summary_obj.net_profit
+
+class SummaryRatios(db.Model):
+    __tablename__ = 'summary_ratios'
+
+    code = db.Column(db.String(6), db.ForeignKey('stock_identity.code'), 
+        primary_key=True)
+    dead_line = db.Column(db.Integer)
+    MoM_main_business_revenue = db.Column(db.Numeric, default=0.0)
+    YoY_main_business_revenue = db.Column(db.Numeric, default=0.0)
+    MoM_net_profit = db.Column(db.Numeric, default=0.0)
+    YoY_net_profit = db.Column(db.Numeric, default=0.0)
+    MoM_earnings_per_share = db.Column(db.Numeric, default=0.0)
+    YoY_earnings_per_share = db.Column(db.Numeric, default=0.0)
+    MoM_cash_flow_per_share = db.Column(db.Numeric, default=0.0)
+    YoY_cash_flow_per_share = db.Column(db.Numeric, default=0.0)
+    def __init__(self, code, dead_line, MoM_main_business_revenue, YoY_main_business_revenue,
+        MoM_net_profit, YoY_net_profit, MoM_earnings_per_share, YoY_earnings_per_share,
+        MoM_cash_flow_per_share, YoY_cash_flow_per_share):
+        self.code = code
+        self.dead_line = dead_line
+        self.MoM_main_business_revenue = MoM_main_business_revenue
+        self.YoY_main_business_revenue = YoY_main_business_revenue
+        self.MoM_net_profit = MoM_net_profit
+        self.YoY_net_profit = YoY_net_profit
+        self.MoM_earnings_per_share = MoM_earnings_per_share
+        self.YoY_earnings_per_share = YoY_earnings_per_share
+        self.MoM_cash_flow_per_share = MoM_cash_flow_per_share
+        self.YoY_cash_flow_per_share = YoY_cash_flow_per_share
+
+    def serialize(slef):
+        return {
+            'code': self.code,
+            'dead_line': self.dead_line,
+            'MoM_main_business_revenue': self.MoM_main_business_revenue,
+            'YoY_main_business_revenue': self.YoY_main_business_revenue,
+            'MoM_net_profit': self.MoM_net_profit,
+            'YoY_net_profit': self.YoY_net_profit,
+            'MoM_earnings_per_share': self.MoM_earnings_per_share,
+            'YoY_earnings_per_share': self.YoY_earnings_per_share,
+            'MoM_cash_flow_per_share': self.MoM_cash_flow_per_share,
+            'YoY_cash_flow_per_share': self.YoY_cash_flow_per_share,
+        }
