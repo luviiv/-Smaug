@@ -37,5 +37,5 @@ def query_stock(parameter):
 
 @fetchdata.route('/summaryratio/<code>', methods=['GET'])
 def query_summary_ratio(code):
-    result = summary_ratios_calculate(code)
+    result = summary_ratios_calculate(code,'2014-03-01')
     return jsonify(ratios = result)

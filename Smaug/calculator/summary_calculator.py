@@ -15,7 +15,11 @@ dummy_summary = {
             'cash_flow_per_share': '',
         }
 
-def summary_ratios_calculate(stock_code):
+def summary_ratios_calculate(stock_code, dead_line=None):
+    if dead_line==None:
+        dead_line_int = '19000101'
+    else:
+        dead_line_int = ''.join(dead_line.split('-'))
     summaries = SeasonlySummary.query.filter_by(code=stock_code)
     data_map = {}
     #get data needed for each deadline
@@ -30,6 +34,8 @@ def summary_ratios_calculate(stock_code):
         data_map[date_int] = tmp_map
     result_map = {}
     for d in data_map:
+        if int(d)<int(dead_line_int):
+            continue
         current_summary = data_map[d]
         MoM_date = _get_MoM_date(d)
         YoY_date = _get_YoY_date(d)
@@ -42,7 +48,7 @@ def summary_ratios_calculate(stock_code):
             YoY_summary = data_map[YoY_date]
         else:
             YoY_summary = dummy_summary
-            
+
         ratio_map = {
             'MoM_main_business_revenue': _get_MoM_ratio(
                 current_summary['main_business_revenue'],
