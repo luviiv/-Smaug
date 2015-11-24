@@ -8,4 +8,5 @@
 
 from .stock_info import StockIdentity
 from .stock_info import SeasonlySummary
+from .stock_info import SummaryRatios
 from .users import User
