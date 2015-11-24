@@ -105,16 +105,16 @@ class SummaryRatios(db.Model):
         self.MoM_cash_flow_per_share = MoM_cash_flow_per_share
         self.YoY_cash_flow_per_share = YoY_cash_flow_per_share
 
-    def serialize(slef):
+    def serialize(self):
         return {
             'code': self.code,
-            'dead_line': self.dead_line,
-            'MoM_main_business_revenue': self.MoM_main_business_revenue,
-            'YoY_main_business_revenue': self.YoY_main_business_revenue,
-            'MoM_net_profit': self.MoM_net_profit,
-            'YoY_net_profit': self.YoY_net_profit,
-            'MoM_earnings_per_share': self.MoM_earnings_per_share,
-            'YoY_earnings_per_share': self.YoY_earnings_per_share,
-            'MoM_cash_flow_per_share': self.MoM_cash_flow_per_share,
-            'YoY_cash_flow_per_share': self.YoY_cash_flow_per_share,
+            'dead_line': str(self.dead_line),
+            'MoM_main_business_revenue': str(self.MoM_main_business_revenue),
+            'YoY_main_business_revenue': str(self.YoY_main_business_revenue),
+            'MoM_net_profit': str(self.MoM_net_profit),
+            'YoY_net_profit': str(self.YoY_net_profit),
+            'MoM_earnings_per_share': str(self.MoM_earnings_per_share),
+            'YoY_earnings_per_share': str(self.YoY_earnings_per_share),
+            'MoM_cash_flow_per_share': str(self.MoM_cash_flow_per_share),
+            'YoY_cash_flow_per_share': str(self.YoY_cash_flow_per_share),
         }
