@@ -30,6 +30,22 @@
 </div>
 
 <table id="summary_grid"></table>
+<div style="margin-top: 10px;margin-bottom:10px">
+  <select id="trend-column">
+    <option value="main_business_revenue">{{ _("Main Business Revenue") }}</option>
+    <option value="net_profit">{{ _("Net Profit") }}</option>
+    <option value="earnings_per_share">{{ _("Earnings Per Share") }}</option>
+    <option value="total_long_term_liabilities">{{ _("Total Long Term Liabilities") }}</option>
+    <option value="net_assets_value_per_share">{{ _("Net Assets Value Per Share") }}</option>
+    <option value="cash_flow_per_share">{{ _("Cash Flow Per Share") }}</option>
+    <option value="financial_expenses">{{ _("Financial Expenses") }}</option>
+    <option value="total_current_assets">{{ _("Total Current Assets") }}</option>
+    <option value="total_fixed_assets">{{ _("Total Fixed Assets") }}</option>
+    <option value="total_assets">{{ _("Total Assets") }}</option>
+  </select>
+</div>
+<div id="trend-table" style="height: 400px">
+</div>
 <input type='hidden' value='{{ _("Dead Line") }}' id='dead_line'/>
 <input type='hidden' value='{{ _("Stock Name") }}' id='stock_name'/>
 <input type='hidden' value='{{ _("Main Business Revenue") }}' id='main_business_revenue'/>
@@ -42,10 +58,13 @@
 <input type='hidden' value='{{ _("Total Current Assets") }}' id='total_current_assets'/>
 <input type='hidden' value='{{ _("Total Fixed Assets") }}' id='total_fixed_assets'/>
 <input type='hidden' value='{{ _("Total Assets") }}' id='total_assets'/>
+<input type='hidden' value='{{ _("unit: million") }}' id='million'/>
+
 {% endblock%}
 
 {% block javascript %}
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jqgrid/4.6.0/js/jquery.jqGrid.min.js"></script>
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.1.6/semantic.min.js"></script>
 <script type="text/javascript" src="{{ url_for('static', filename='js/panels/finance_summary.js') }}"></script>
+<script type="text/javascript" src="http://echarts.baidu.com/build/dist/echarts.js"></script>
 {% endblock %}

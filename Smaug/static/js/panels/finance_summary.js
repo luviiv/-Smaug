@@ -5,11 +5,22 @@ function SummaryGrid(){
     var MARCH = /-03-/;
     var JUNE = /-06-/;
     var SEPTEMBER = /-09-/;
+    var ALL = 'all';
+    var currentMonth = ALL;
+    var currentParam = 'main_business_revenue';
 
     var no_result = $('#search_result').text();
     var current_stock = {}
     current_stock.code = $('#title_code').text();
     current_stock.name = $('#title_name').text();
+
+    var million_param = ['main_business_revenue',
+                        'net_profit',
+                        'total_long_term_liabilities',
+                        'financial_expenses',
+                        'total_current_assets',
+                        'total_assets',
+                        'total_fixed_assets'];
     //regexp to test if matches the month
     this.loadGrid = function(_code){
         var queryUrl = '/finance_summary/'+_code;
@@ -39,6 +50,7 @@ function SummaryGrid(){
             height: 460,
             loadComplete: function(){
                 enableFilterButtons();
+                self.loadTrendTable();
             }
         });
         
@@ -61,21 +73,128 @@ function SummaryGrid(){
         }
     };
 
+    this.loadTrendTable = function(){
+        var _month = currentMonth;
+        var _columnName = currentParam;
+        var seasonData = [];
+        var seasonDeadLine = [];
+        var allData = [];
+        var allDeadLine = [];
+        var summaries = $('#summary_grid').jqGrid('getCol',_columnName, true);
+
+        var unit = '';
+        if($.inArray(currentParam, million_param)!=-1){
+            unit = $('#million').val();
+        }
+        //filter rows by month
+        for(var i=summaries.length-1;i>=0;i--){
+            var data = unit==''?summaries[i].value:(summaries[i].value/100);
+            if(_month==ALL){
+                seasonData.push(data);
+                seasonDeadLine.push(summaries[i].id);
+            }else if(_month.test(summaries[i].id)){
+                seasonData.push(data);
+                seasonDeadLine.push(summaries[i].id);
+            }
+        }
+        
+        var lineLabel = $('#all').text();
+        if(_month==MARCH){
+            lineLabel = $('#march').text();
+        }else if(_month==JUNE){
+            lineLabel = $('#june').text();
+        }else if(_month==SEPTEMBER){
+            lineLabel = $('#september').text();
+        }else if(_month==DECEMBER){
+            lineLabel = $('#december').text();
+        }
+        //setup trend table
+        require.config({
+            paths: {
+                echarts: 'http://echarts.baidu.com/build/dist'
+            }
+        });
+        require(
+            [
+                'echarts',
+                'echarts/chart/line'
+            ],function (ec) {
+                var myChart = ec.init(document.getElementById('trend-table')); 
+                var option = {
+                    title : {
+                        text: $('#'+currentParam).val(),
+                        subtext: unit
+                    },
+                    tooltip : {
+                        trigger: 'axis'
+                    },
+                    legend: {
+                        data:[lineLabel]
+                    },
+                    toolbox: {
+                        show : true,
+                        feature : {
+                            mark : {show: true},
+                            dataView : {show: true, readOnly: false},
+                            restore : {show: true},
+                            saveAsImage : {show: true}
+                        }
+                    },
+                    calculable : true,
+                    xAxis : [
+                        {
+                            type : 'category',
+                            boundaryGap : false,
+                            data : seasonDeadLine
+                        }
+                    ],
+                    yAxis : [
+                        {
+                            type : 'value'
+                        }
+                    ],
+                    series : [
+                        {
+                            name:lineLabel,
+                            type:'line',
+                            stack: '总量',
+                            data:seasonData
+                        }
+                    ]
+                };
+                myChart.setOption(option); 
+            }); 
+    };
+
     this.bindActions = function(){
         $('#all').click(function(event) {
+            currentMonth = ALL;
             self.filterByDeadLine("all");
+            self.loadTrendTable();
         });
         $('#march').click(function(event) {
+            currentMonth = MARCH;
             self.filterByDeadLine(MARCH);
+            self.loadTrendTable();
         });
         $('#june').click(function(event) {
+            currentMonth = JUNE;
             self.filterByDeadLine(JUNE);
+            self.loadTrendTable();
         });
         $('#september').click(function(event) {
+            currentMonth = SEPTEMBER;
             self.filterByDeadLine(SEPTEMBER);
+            self.loadTrendTable();
         });
         $('#december').click(function(event) {
+            currentMonth = DECEMBER;
             self.filterByDeadLine(DECEMBER);
+            self.loadTrendTable();
+        });
+        $('#trend-column').change(function(){
+            currentParam = $('#trend-column').val();
+            self.loadTrendTable();
         });
         $('#search_stock').change(searchStock);
         $('#search_result').blur(function(event) {
