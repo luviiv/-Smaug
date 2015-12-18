@@ -3,25 +3,24 @@
 <head>
     <title>{% block title %}{% endblock %}</title>
     <link rel="stylesheet" type="text/css" href="https://code.jquery.com/ui/1.11.4/themes/pepper-grinder/jquery-ui.css">
-    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.1.5/semantic.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.3/css/materialize.min.css">
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/base.css') }}">
     {% block css %}{% endblock %}
 
 </head>
 <body>
-    <div class="ui borderless main menu">
-        <div class="ui text container">
-          <div href="#" class="header item">
-            <img class="logo" src="{{ url_for('static', filename='images/logo.png') }}"/>
-            <div class="item header">{{ _("Smaug") }}</div>
-          </div>
+    <nav>
+        <div class="nav-wrapper">
+            <a href="{{ url_for('frameview.index') }}" class="brand-logo">
+                <div style="padding-left:50px;">Smaug</div>
+            </a>
         </div>
-    </div>
-    <div class="ui smg-width">
+    </nav>
+    <div class="container">
     {% block content %}{% endblock %}
     </div>
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
-    <script type="text/javascript" src="https://code.jquery.com/ui/1.11.3/jquery-ui.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.3/js/materialize.min.js"></script>
     {% block javascript %}{% endblock %}
 </body>
 </html>

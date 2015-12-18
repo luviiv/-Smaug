@@ -4,38 +4,38 @@
 
 {% block content %}
 <div style="width:300px; margin:0 auto;">
-<h2>{{ _("Login") }}</h2>
-<div class="ui divider"></div>
+<h4>{{ _("Login") }}</h4>
+<div class="divider"></div>
 {% with messages = get_flashed_messages() %}
   {% if messages %}
-      <div class="ui error message">{{ messages|last }}</div>
+      <div id="msg" style="color:#e57373">{{ messages|last }}</div>
   {% endif %}
 {% endwith %}
 <form method="POST" action=".">
     {{ form.hidden_tag() }}
     {{ form.next }}
-    <div class="ui very relaxed list">
-        <div class="item">
+    <div>
+        <div>
             {{ render_errors(form.login) }}
-            <div class="ui input fluid">
+            <div>
             {{ form_field(form.login) }}
             </div>
         </div>
 
-        <div class="item">
+        <div>
             {{ render_errors(form.password) }}
-            <div class="ui input fluid">
+            <div>
             {{ form_field(form.password) }}
             </div>
         </div>
-        <div class="item">
-            <div class="ui checkbox">
+        <div>
+            <div>
             {{ form.remember }}
             {{ form.remember.label(class_="checkbox") }}
             </div>
         </div>
-        <div class="item">
-            {{ form.submit(class_="ui button fluid") }}
+        <div style="margin-top:10px;">
+            {{ form.submit(class_="waves-effect waves-light btn") }}
         </div>
     </div>
 </form>

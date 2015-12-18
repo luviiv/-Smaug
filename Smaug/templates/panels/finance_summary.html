@@ -5,47 +5,68 @@
 {% endblock %}
 
 {% block right %}
-<h3 class="ui header">{{ _("Finance Summary") }}
-    <div class="ui left pointing basic label"><div id="title_code">{{ company.code }}</div><div id="title_name">{{ company.name }}</div></div>
-</h3>
-
-<div class="ui grid" style="padding-bottom: 0.5px;">
-  <div class="ten wide column">
-    <div class="ui buttons">
-      <button class="ui button" id="all" disabled="true">{{ _("All") }}</button>
-      <button class="ui button" id="march" disabled="true">{{ _("March") }}</button>
-      <button class="ui button" id="june" disabled="true">{{ _("June") }}</button>
-      <button class="ui button" id="september" disabled="true">{{ _("September") }}</button>
-      <button class="ui button" id="december" disabled="true">{{ _("December") }}</button>
+<div class="row">
+  <!-- left menus -->
+  <div class="col s12 m3">
+    <div class="card-panel">
+      <div class="row">
+        <div class="col s6">
+        <h5>{{ _("Finance Summary") }}</h5>
+        </div>
+        <div class="col s6">
+          <input type="text" id="search_stock" placeholder="{{ _('Search Stock') }}...">
+          <div class="ui left pointing basic label smg-hide" id="search_result" tabindex="-1" style="cursor:pointer">
+            {{ _('No matched result') }}
+          </div>
+        </div>
+      </div>
+      <div class="divider"></div>
+      <div class="row" style="font-weight: bold">
+        <div id="title_code" class="col s3">{{ company.code }}</div>
+        <div id="title_name" class="col s9">{{ company.name }}</div>
+      </div>
     </div>
-  </div>
-  <div class="six wide column">
-    <div class="ui input" style="float: right">
-      <input type="text" id="search_stock" placeholder="{{ _('Search Stock') }}...">
-      <div class="ui left pointing basic label smg-hide" id="search_result" tabindex="-1" style="cursor:pointer">
-        {{ _('No matched result') }}
+    <div class="card-panel">
+      <div class="row">
+        <label>{{ _("Show data according to season") }}</label>
+        <div class="input-field">
+          <select id="data-season">
+            <option value="all" selected>{{ _("All") }}</option>
+            <option value="march">{{ _("March") }}</option> 
+            <option value="june">{{ _("June") }}</option>
+            <option value="september">{{ _("September") }}</option>
+            <option value="december">{{ _("December") }}</option>
+          </select>
+        </div>
+      </div>
+      <div class="row">
+        <label>{{ _("Item in trend table") }}</label>
+        <div class="input-field">
+          <select id="trend-column">
+            <option value="main_business_revenue" selected>{{ _("Main Business Revenue") }}</option>
+            <option value="net_profit">{{ _("Net Profit") }}</option>
+            <option value="earnings_per_share">{{ _("Earnings Per Share") }}</option>
+            <option value="total_long_term_liabilities">{{ _("Total Long Term Liabilities") }}</option>
+            <option value="net_assets_value_per_share">{{ _("Net Assets Value Per Share") }}</option>
+            <option value="cash_flow_per_share">{{ _("Cash Flow Per Share") }}</option>
+            <option value="financial_expenses">{{ _("Financial Expenses") }}</option>
+            <option value="total_current_assets">{{ _("Total Current Assets") }}</option>
+            <option value="total_fixed_assets">{{ _("Total Fixed Assets") }}</option>
+            <option value="total_assets">{{ _("Total Assets") }}</option>
+          </select>
+        </div>
       </div>
     </div>
   </div>
+  <!-- right content -->
+  <div class="col s12 m9">
+    <div class="card-panel">
+      <table id="summary_grid"></table>
+      <div id="trend-table" style="height: 400px"></div>
+    </div>
+  </div>
 </div>
 
-<table id="summary_grid"></table>
-<div style="margin-top: 10px;margin-bottom:10px">
-  <select id="trend-column">
-    <option value="main_business_revenue">{{ _("Main Business Revenue") }}</option>
-    <option value="net_profit">{{ _("Net Profit") }}</option>
-    <option value="earnings_per_share">{{ _("Earnings Per Share") }}</option>
-    <option value="total_long_term_liabilities">{{ _("Total Long Term Liabilities") }}</option>
-    <option value="net_assets_value_per_share">{{ _("Net Assets Value Per Share") }}</option>
-    <option value="cash_flow_per_share">{{ _("Cash Flow Per Share") }}</option>
-    <option value="financial_expenses">{{ _("Financial Expenses") }}</option>
-    <option value="total_current_assets">{{ _("Total Current Assets") }}</option>
-    <option value="total_fixed_assets">{{ _("Total Fixed Assets") }}</option>
-    <option value="total_assets">{{ _("Total Assets") }}</option>
-  </select>
-</div>
-<div id="trend-table" style="height: 400px">
-</div>
 <input type='hidden' value='{{ _("Dead Line") }}' id='dead_line'/>
 <input type='hidden' value='{{ _("Stock Name") }}' id='stock_name'/>
 <input type='hidden' value='{{ _("Main Business Revenue") }}' id='main_business_revenue'/>
@@ -64,7 +85,6 @@
 
 {% block javascript %}
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jqgrid/4.6.0/js/jquery.jqGrid.min.js"></script>
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.1.6/semantic.min.js"></script>
 <script type="text/javascript" src="{{ url_for('static', filename='js/panels/finance_summary.js') }}"></script>
 <script type="text/javascript" src="http://echarts.baidu.com/build/dist/echarts.js"></script>
 {% endblock %}

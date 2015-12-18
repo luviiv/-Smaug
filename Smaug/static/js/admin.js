@@ -1,18 +1,17 @@
 function updateStockList(){
     var deferred = $.Deferred();
-    $('#basic_setup').addClass('loading');
+    $("#close-modal").addClass('smg-hide');
+    prepareProgress(false);
+    $('#progress').openModal();
     $.ajax({
         url: '/admin/update_stock_list',
         type: 'GET'
-    }).done(function(){
-        $('#basic_setup').removeClass('loading');
-        $('#basic_setup_msg_success').removeClass('hidden');
-        $('#basic_setup_msg_error').addClass('hidden');
+    }).done(function() {
+        showMsg($("#success-title").val(),$("#success-msg").val());
         deferred.resolve();
-    }).fail(function(){
-        $('#basic_setup').removeClass('loading');
-        $('#basic_setup_msg_success').addClass('hidden');
-        $('#basic_setup_msg_error').removeClass('hidden');
+    })
+    .fail(function() {
+        showMsg($("#fail-title").val(),$("#fail-msg").val());
         deferred.reject();
     });
     return deferred.promise()
@@ -20,24 +19,41 @@ function updateStockList(){
 
 function updateFinanceSummary(){
     var deferred = $.Deferred();
-    $('#basic_setup').addClass('loading');
+    $("#close-modal").addClass('smg-hide');
+    prepareProgress(false);
+    $('#progress').openModal();
     $.ajax({
         url: '/admin/update_finance_summary',
         type: 'GET'
     })
     .done(function() {
-        $('#basic_setup').removeClass('loading');
-        $('#basic_setup_msg_success').removeClass('hidden');
-        $('#basic_setup_msg_error').addClass('hidden');
+        showMsg($("#success-title").val(),$("#success-msg").val());
         deferred.resolve();
     })
     .fail(function() {
-        $('#basic_setup').removeClass('loading');
-        $('#basic_setup_msg_success').addClass('hidden');
-        $('#basic_setup_msg_error').removeClass('hidden');
+        showMsg($("#fail-title").val(),$("#fail-msg").val());
         deferred.reject();
     });
     return deferred.promise();
+}
+
+function showMsg(_title, _content){
+    $("#msg-title").text(_title);
+    $("#msg-content").text(_content);
+    $("#close-modal").removeClass('smg-hide');
+    prepareProgress(true);
+}
+
+function prepareProgress(_isend){
+    if(_isend){
+        $("#progress-bar").removeClass("indeterminate");
+        $("#progress-bar").addClass("determinate");
+    }else{
+        $("#progress-bar").removeClass("determinate");
+        $("#progress-bar").addClass("indeterminate");
+        $("#msg-title").text($("#msg-t").val());
+        $("#msg-content").text($("#msg-c").val());
+    }
 }
 
 $(function(){
@@ -47,7 +63,7 @@ $(function(){
     $("#update_finance_summary").click(function(event) {
         updateFinanceSummary();
     });
-    $('.message .close').on('click', function() {
-        $(this).closest('.message').addClass('hidden');
+    $("#close-modal").click(function(event) {
+        $('#progress').closeModal();
     });
 });

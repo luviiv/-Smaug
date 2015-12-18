@@ -1,46 +1,57 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>{{ _("Smaug") }}</title>
-    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.1.5/semantic.min.css">
-    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/base.css') }}">
-    
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.1.5/semantic.min.js"></script>
-    <script type="text/javascript" src="{{ url_for('static', filename='js/admin.js') }}"></script>
-</head>
-<body>
-    <div class="ui borderless main menu">
-        <div class="ui text container">
-          <div href="#" class="header item">
-            <img class="logo" src="{{ url_for('static', filename='images/logo.png') }}"/>
-            <div class="item header">{{ _("Smaug") }}</div>
-          </div>
+{% extends "base.html" %}
+
+{% block title %}
+    {{ _("Smaug") }}
+{% endblock %}
+
+{% block content %}
+    <div class="row" id="basic_setup">
+        <div class="col s12 m6">
+            <div class="card blue-grey darken-1">
+                <div class="card-content white-text">
+                  <span class="card-title">{{ _("Update stock list") }}</span>
+                  <p>{{ _("Update the stock list to the lastest version, which includes stock code and name.") }}</p>
+                </div>
+                <div class="card-action">
+                  <a id="update_stock_list" href="#">{{ _("Update stock list") }}</a>
+                </div>
+            </div>
+        </div>
+        <div class="col s12 m6">
+            <div class="card blue-grey darken-1">
+                <div class="card-content white-text">
+                  <span class="card-title">{{ _("Update finance summary") }}</span>
+                  <p>{{ _("Update the seasonly finance summary of each compay.") }}</p>
+                </div>
+                <div class="card-action">
+                  <a id="update_finance_summary" href="#">{{ _("Update finance summary") }}</a>
+                </div>
+            </div>
         </div>
     </div>
-    
-    <div class="ui segment smg-width" id="basic_setup">
-        <div class="ui vertical segment">
-          <h2 class="ui header">{{ _("Basic setup") }}</h2>
-        </div>
-        <div class="ui info message hidden" id="basic_setup_msg_success">
-            <i class="close icon"></i>
-            <div class="header">{{ _("update succeeded!") }}</div>
-        </div>
-        <div class="ui error message hidden" id="basic_setup_msg_error">
-            <i class="close icon"></i>
-            <div class="header">{{ _("update failed!") }}</div>
-        </div>
-        <div class="ui message">
-            <p>{{ _("Update the stock list to the lastest version, which includes stock code and name.") }}</p>
-            <button id="update_stock_list" class="ui right labeled icon button"><i class="right refresh icon"></i>
-                {{ _("Update stock list") }}</button>
-        </div>
-        <div class="ui message">
-            <p>{{ _("Update the seasonly finance summary of each compay.") }}</p>
-            <button id="update_finance_summary" class="ui right labeled icon button"><i class="right refresh icon"></i>
-                {{ _("Update finance summary") }}</button>
-        </div>
+    <div id="progress" class="modal">
+            <div class="modal-content">
+                <span class="card-title" id="msg-title" >{{ _("Progressing") }}</span>
+                <p id="msg-content">{{ _("The progress is undergoing, please wait for a moment...") }}</p>
+                <div class="progress">
+                <div class="indeterminate" id="progress-bar" style="width: 100%"></div>
+                </div>
+            </div>
+            
+            
+            <div class="modal-footer">
+                <a id="close-modal" class=" modal-action modal-close waves-effect waves-green btn-flat" href="#">{{ _("close") }}</a>
+            </div>
     </div>
-</body>
-</html>
+
+    <input type="hidden" id="success-title" value='{{ _("Update Succeeded") }}'/>
+    <input type="hidden" id="fail-title" value='{{ _("Update Failed") }}'/>
+    <input type="hidden" id="success-msg" value='{{ _("update succeeded!") }}'/>
+    <input type="hidden" id="fail-msg" value='{{ _("update failed!") }}'/>
+    <input type="hidden" id="msg-t" value='{{ _("Progressing") }}'/>
+    <input type="hidden" id="msg-c" value='{{ _("The progress is undergoing, please wait for a moment...") }}'>
+{% endblock %}
+
+{% block javascript %}
+<script type="text/javascript" src="{{ url_for('static', filename='js/admin.js') }}"></script>
+{% endblock %}

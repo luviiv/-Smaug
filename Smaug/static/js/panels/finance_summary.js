@@ -98,15 +98,15 @@ function SummaryGrid(){
             }
         }
         
-        var lineLabel = $('#all').text();
+        var lineLabel = $('option[value="all"]').text();
         if(_month==MARCH){
-            lineLabel = $('#march').text();
+            lineLabel = $('option[value="march"]').text();
         }else if(_month==JUNE){
-            lineLabel = $('#june').text();
+            lineLabel = $('option[value="june"]').text();
         }else if(_month==SEPTEMBER){
-            lineLabel = $('#september').text();
+            lineLabel = $('option[value="september"]').text();
         }else if(_month==DECEMBER){
-            lineLabel = $('#december').text();
+            lineLabel = $('option[value="#december"]').text();
         }
         //setup trend table
         require.config({
@@ -167,29 +167,20 @@ function SummaryGrid(){
     };
 
     this.bindActions = function(){
-        $('#all').click(function(event) {
-            currentMonth = ALL;
-            self.filterByDeadLine("all");
-            self.loadTrendTable();
-        });
-        $('#march').click(function(event) {
-            currentMonth = MARCH;
-            self.filterByDeadLine(MARCH);
-            self.loadTrendTable();
-        });
-        $('#june').click(function(event) {
-            currentMonth = JUNE;
-            self.filterByDeadLine(JUNE);
-            self.loadTrendTable();
-        });
-        $('#september').click(function(event) {
-            currentMonth = SEPTEMBER;
-            self.filterByDeadLine(SEPTEMBER);
-            self.loadTrendTable();
-        });
-        $('#december').click(function(event) {
-            currentMonth = DECEMBER;
-            self.filterByDeadLine(DECEMBER);
+        $('#data-season').change(function(){
+            var seasonVal = $('#data-season').val();
+            if(seasonVal=="march"){
+                currentMonth = MARCH;
+            }else if(seasonVal=="june"){
+                currentMonth = JUNE;
+            }else if(seasonVal=="september"){
+                currentMonth = SEPTEMBER;
+            }else if(seasonVal=="december"){
+                currentMonth = DECEMBER;
+            }else{
+                currentMonth = ALL;
+            }
+            self.filterByDeadLine(currentMonth);
             self.loadTrendTable();
         });
         $('#trend-column').change(function(){
@@ -218,6 +209,8 @@ function SummaryGrid(){
                 }, 6000);
             }
         });
+
+        $('select').material_select();
     };
 
     function enableFilterButtons(){
