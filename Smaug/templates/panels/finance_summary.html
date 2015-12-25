@@ -15,15 +15,15 @@
         </div>
         <div class="col s6">
           <input type="text" id="search_stock" placeholder="{{ _('Search Stock') }}...">
-          <div class="ui left pointing basic label smg-hide" id="search_result" tabindex="-1" style="cursor:pointer">
+          <div id="search_result" tabindex="-1" class="smg-hide card-panel" style="cursor:pointer;position:absolute;z-index:1000">
             {{ _('No matched result') }}
           </div>
         </div>
       </div>
       <div class="divider"></div>
-      <div class="row" style="font-weight: bold">
-        <div id="title_code" class="col s3">{{ company.code }}</div>
-        <div id="title_name" class="col s9">{{ company.name }}</div>
+      <div class="row" style="font-weight: bold;font-size: 25px;">
+        <div id="title_code" class="col s4">{{ company.code }}</div>
+        <div id="title_name" class="col s8">{{ company.name }}</div>
       </div>
     </div>
     <div class="card-panel">

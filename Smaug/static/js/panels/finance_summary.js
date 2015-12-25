@@ -187,7 +187,7 @@ function SummaryGrid(){
             currentParam = $('#trend-column').val();
             self.loadTrendTable();
         });
-        $('#search_stock').change(searchStock);
+        $('#search_stock').keyup(searchStock);
         $('#search_result').blur(function(event) {
             $('#search_result').addClass('smg-hide');
         });
@@ -233,19 +233,23 @@ function SummaryGrid(){
             url: '/fetchdata/querystock/'+$('#search_stock').val(),
             type: 'GET'
         }).then(function(back){
+            $('#search_result').css({
+                left: $('#search_stock').offset().left,
+                top: $('#search_stock').offset().top+$('#search_stock').height()
+            });
             if(back.stock==null){
                 $('#search_result').text(no_result);
-                $('#search_result').removeClass('blue')
-                $('#search_result').addClass('red');
+                $('#search_result').removeClass('blue-text')
+                $('#search_result').addClass('deep-orange-text');
                 self.current_stock = null;
             }else{
                 $('#search_result').text(back.stock.code+' '+back.stock.name);
-                $('#search_result').removeClass('red')
-                $('#search_result').addClass('blue');
+                $('#search_result').removeClass('deep-orange-text')
+                $('#search_result').addClass('blue-text');
                 self.current_stock = back.stock;
             }
             $('#search_result').removeClass('smg-hide');
-            $('#search_result').focus();
+            //$('#search_result').focus();
         });
     }
 }
