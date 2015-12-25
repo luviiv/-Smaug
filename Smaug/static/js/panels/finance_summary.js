@@ -50,6 +50,7 @@ function SummaryGrid(){
             height: 460,
             loadComplete: function(){
                 enableFilterButtons();
+                self.filterByDeadLine(currentMonth);
                 self.loadTrendTable();
             }
         });
