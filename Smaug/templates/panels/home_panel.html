@@ -1,0 +1,32 @@
+{% extends "index.html" %}
+{% block right %}
+<div class="row">
+    <div class="card-panel" style="width:100%;height:500px;">
+        <div class="col s7" style="height:100%;border-right:1px solid lightgray">
+            <table id="my-stocks" class="bordered">
+                <thead>
+                    <tr>
+                        <th data-field="name">{{ _("Name") }}</th>
+                        <th data-field="price">{{ _("Price") }}</th>
+                        <th data-field="price-limit">{{ _("Price Limit") }}</th>
+                        <th data-field="amount">{{ _("Amount") }}</th>
+                        <th data-field="market-cap">{{ _("Market Cap") }}</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for item in mystocks %}
+                        <tr>
+                            <td data-field="name">{ item.name } | {item.code}</td>
+                            <td data-field="price"></td>
+                            <td data-field="price-limit"></td>
+                            <td data-field="amount"></td>
+                            <td data-field="market-cap"></td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        <div class="col s5"></div>
+    </div>
+</div>
+{% endblock %}

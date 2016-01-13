@@ -17,8 +17,8 @@ frameview = Blueprint('frameview', __name__,
 @frameview.route('/')
 def index():
     try:
-        return render_template('index.html')
-    except TemplateNotFound:
+        return render_template('panels/home_panel.html')
+    except:
         abort(404)
 
 @frameview.route('/finance_summary', methods=('GET',))
