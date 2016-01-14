@@ -219,7 +219,7 @@ msgstr "OpenID已成功关联至账户，现在可以使用OpenID进行登录"
 #: views/account.py:53
 #, python-format
 msgid "Welcome back, %(name)s"
-msgstr "欢迎回来，%(name)"
+msgstr "欢迎回来，%(name)s"
 
 #: views/account.py:63
 msgid "Sorry, invalid login"
