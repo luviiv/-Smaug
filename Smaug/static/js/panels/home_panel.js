@@ -12,7 +12,14 @@ function MyStocks(){
                 queryUrl=queryUrl+"sz"+stockList[idx];
             }
         }
-        refreshGrid(queryUrl);
+        if(stockList.length>0){
+            refreshGrid(queryUrl);
+            $('#no-data').css("display","none");
+            $('#my-stock-list').css("display","block");
+        }else{
+            $('#no-data').css("display","block");
+            $('#my-stock-list').css("display","none");
+        }
     };
     function refreshGrid(_queryUrl){
         $.ajax({

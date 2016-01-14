@@ -3,44 +3,47 @@
 <div class="row">
     <div class="card-panel" style="width:100%;height:500px;">
         <div class="col s10" style="height:100%;border-right:1px solid lightgray">
-            <table id="my-stocks" class="bordered">
-                <thead>
-                    <tr>
-                        <th data-field="code">{{ _("Code") }}</th>
-                        <th data-field="name">{{ _("Name") }}</th>
-                        <th data-field="new-price">{{ _("New Price") }}</th>
-                        <th data-field="price-change">{{ _("Price Change") }}</th>
-                        <th data-field="price-limit">{{ _("Price Limit") }}</th>
-                        <th data-filed="buy">{{ _("Buy") }}</th>
-                        <th data-filed="sell">{{ _("Sell") }}</th>
-                        <th data-filed="yesterday-close">{{ _("Yesterday Close") }}</th>
-                        <th data-filed="today-open">{{ _("Today Open") }}</th>
-                        <th data-field="highest">{{ _("Highest") }}</th>
-                        <th data-field="lowest">{{ _("Lowest") }}</th>
-                        <th data-field="amount">{{ _("Amount (Lot) ") }}</th>
-                        <th data-field="turnover">{{ _("Turnover (Ten Thounsand)") }}</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {% for item in mystocks %}
+            <div id="no-data" class="grey-text text-lighten-2"><span>{{ _("No saved stocks") }}</span></div>
+            <div id="my-stock-list">
+                <table id="my-stocks" class="bordered">
+                    <thead>
                         <tr>
-                            <td data-field="code">{{ item.code }}</td>
-                            <td data-field="name">{{ item.name }}</td>
-                            <td data-field="new-price"></td>
-                            <td data-field="price-change"></td>
-                            <td data-field="price-limit"></td>
-                            <td data-field="buy"></td>
-                            <td data-field="sell"></td>
-                            <td data-field="yesterday-close"></td>
-                            <td data-field="today-open"></td>
-                            <td data-field="highest"></td>
-                            <td data-field="lowest"></td>
-                            <td data-field="amount"></td>
-                            <td data-field="turnover"></td>
+                            <th data-field="code">{{ _("Code") }}</th>
+                            <th data-field="name">{{ _("Name") }}</th>
+                            <th data-field="new-price">{{ _("New Price") }}</th>
+                            <th data-field="price-change">{{ _("Price Change") }}</th>
+                            <th data-field="price-limit">{{ _("Price Limit") }}</th>
+                            <th data-filed="buy">{{ _("Buy") }}</th>
+                            <th data-filed="sell">{{ _("Sell") }}</th>
+                            <th data-filed="yesterday-close">{{ _("Yesterday Close") }}</th>
+                            <th data-filed="today-open">{{ _("Today Open") }}</th>
+                            <th data-field="highest">{{ _("Highest") }}</th>
+                            <th data-field="lowest">{{ _("Lowest") }}</th>
+                            <th data-field="amount">{{ _("Amount (Lot) ") }}</th>
+                            <th data-field="turnover">{{ _("Turnover (Ten Thounsand)") }}</th>
                         </tr>
-                    {% endfor %}
-                </tbody>
-            </table>
+                    </thead>
+                    <tbody>
+                        {% for item in mystocks %}
+                            <tr>
+                                <td data-field="code">{{ item.code }}</td>
+                                <td data-field="name">{{ item.name }}</td>
+                                <td data-field="new-price"></td>
+                                <td data-field="price-change"></td>
+                                <td data-field="price-limit"></td>
+                                <td data-field="buy"></td>
+                                <td data-field="sell"></td>
+                                <td data-field="yesterday-close"></td>
+                                <td data-field="today-open"></td>
+                                <td data-field="highest"></td>
+                                <td data-field="lowest"></td>
+                                <td data-field="amount"></td>
+                                <td data-field="turnover"></td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
         </div>
         <div class="col s2"></div>
     </div>

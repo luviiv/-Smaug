@@ -15,13 +15,16 @@ from urllib2 import Request
 from Smaug.extensions import db
 from Smaug.models import StockIdentity, SeasonlySummary
 
+from Smaug.permissions import auth
+
 frameview = Blueprint('frameview', __name__,
                         template_folder='templates')
 
 @frameview.route('/')
+@auth.require(401)
 def index():
     try:
-        mystocks = [{'name':'test','code':'600710'},{'name':'test2','code':'600711'},]
+        mystocks = []
         return render_template('panels/home_panel.html',mystocks=mystocks)
     except:
         abort(404)
@@ -58,6 +61,7 @@ def finance_summary(code=None):
         abort(404)
 
 @frameview.route('/dynamic_data', methods=('GET',))
+@auth.require(401)
 def dynamic_data():
     base_url = "http://hq.sinajs.cn/?list="
     try:
