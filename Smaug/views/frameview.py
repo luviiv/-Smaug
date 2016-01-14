@@ -8,6 +8,10 @@
 from flask import Blueprint, render_template, \
     abort, jsonify, request, url_for
 from sqlalchemy.orm import joinedload
+
+import urllib2
+from urllib2 import Request
+
 from Smaug.extensions import db
 from Smaug.models import StockIdentity, SeasonlySummary
 
@@ -17,7 +21,8 @@ frameview = Blueprint('frameview', __name__,
 @frameview.route('/')
 def index():
     try:
-        return render_template('panels/home_panel.html')
+        mystocks = [{'name':'test','code':'600710'},{'name':'test2','code':'600711'},]
+        return render_template('panels/home_panel.html',mystocks=mystocks)
     except:
         abort(404)
 
@@ -49,5 +54,18 @@ def finance_summary(code=None):
                 'rows':summaries,
             }
             return jsonify(json_map)
+    except:
+        abort(404)
+
+@frameview.route('/dynamic_data', methods=('GET',))
+def dynamic_data():
+    base_url = "http://hq.sinajs.cn/?list="
+    try:
+        query_list = request.args.get('list',None)
+        if(query_list is None):
+            abort(404)
+        base_url = base_url + query_list
+        response = urllib2.urlopen(Request(base_url))
+        return response.read().decode('GBK')
     except:
         abort(404)
