@@ -2,7 +2,7 @@
 {% block right %}
 <div class="row">
     <div class="card-panel" style="width:100%;height:500px;">
-        <div class="col s8" style="height:100%;border-right:1px solid lightgray">
+        <div class="col s10" style="height:100%;border-right:1px solid lightgray">
             <table id="my-stocks" class="bordered">
                 <thead>
                     <tr>
@@ -17,8 +17,8 @@
                         <th data-filed="today-open">{{ _("Today Open") }}</th>
                         <th data-field="highest">{{ _("Highest") }}</th>
                         <th data-field="lowest">{{ _("Lowest") }}</th>
-                        <th data-field="amount">{{ _("Amount") }}</th>
-                        <th data-field="turnover">{{ _("Turnover") }}</th>
+                        <th data-field="amount">{{ _("Amount (Lot) ") }}</th>
+                        <th data-field="turnover">{{ _("Turnover (Ten Thounsand)") }}</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -33,7 +33,7 @@
                             <td data-field="sell"></td>
                             <td data-field="yesterday-close"></td>
                             <td data-field="today-open"></td>
-                            <td data-field="heightest"></td>
+                            <td data-field="highest"></td>
                             <td data-field="lowest"></td>
                             <td data-field="amount"></td>
                             <td data-field="turnover"></td>
@@ -42,7 +42,7 @@
                 </tbody>
             </table>
         </div>
-        <div class="col s4"></div>
+        <div class="col s2"></div>
     </div>
 </div>
 {% endblock %}

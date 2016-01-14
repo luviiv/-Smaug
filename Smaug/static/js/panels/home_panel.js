@@ -30,10 +30,30 @@ function MyStocks(){
                     var code = $(this).find('td[data-field="code"]').text().trim();
                     values = mappedResults[code];
                     $(this).find('td[data-field="name"]').text(values[0]);
-                    $(this).find('td[data-field="new-price"]').text(values[1]);
+                    $(this).find('td[data-field="today-open"]').text(parseFloat(values[1]).toFixed(2));
+                    $(this).find('td[data-field="yesterday-close"]').text(parseFloat(values[2]).toFixed(2));
+                    $(this).find('td[data-field="new-price"]').text(parseFloat(values[3]).toFixed(2));
+                    $(this).find('td[data-field="highest"]').text(parseFloat(values[4]).toFixed(2));
+                    $(this).find('td[data-field="lowest"]').text(parseFloat(values[5]).toFixed(2));
+                    $(this).find('td[data-field="buy"]').text(parseFloat(values[6]).toFixed(2));
+                    $(this).find('td[data-field="sell"]').text(parseFloat(values[7]).toFixed(2));
+                    $(this).find('td[data-field="amount"]').text((values[8]/100).toFixed(0));
+                    $(this).find('td[data-field="turnover"]').text((values[9]/10000).toFixed(2));
+                    $(this).find('td[data-field="price-change"]').text(formatSignedNumber(values[3]-values[2]));
+                    $(this).find('td[data-field="price-limit"]').text(formatSignedNumber((values[3]-values[2])/values[2]*100)+'%');
                 });
             }
         });
+        
+        function formatSignedNumber(_v){
+            if(_v<0){
+                return '-'+Math.abs(_v).toFixed(2);
+            }else if(_v>0){
+                return '+'+Math.abs(_v).toFixed(2);
+            }else{
+                return parseFloat(_v).toFixed(2);
+            }
+        }
     }
     function getMyStockList(){
         var mystocks = [];
